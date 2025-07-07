@@ -1,0 +1,50 @@
+services:
+
+  db:
+    container_name: pg_
+    image: postgres:15
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: root
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    container_name: ams_
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      PG_HOST: db
+      PG_PORT: 5432
+      PG_USER: postgres
+      PG_PASS: root
+    #expose:
+    #  - "8080"
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+  zookeeper:
+    image: confluentinc/cp-zookeeper:6.2.0
+    environment:
+      ZOOKEEPER_CLIENT_PORT: 2181
+    ports:
+      - "2181:2181"
+
+  kafka:
+    image: confluentinc/cp-kafka:6.2.0
+    depends_on:
+      - zookeeper
+    ports:
+      - "9092:9092"
+    environment:
+      KAFKA_BROKER_ID: 1
+      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
+      KAFKA_LOG4J_LOGGERS: "kafka.controller=INFO,kafka.producer.async.DefaultEventHandler=INFO,state.change.logger=INFO"
+#      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://$DOCKER HOST:9092
+      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://host.docker.internal:9092
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
