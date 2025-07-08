@@ -1,1 +1,60 @@
 # API_Monitoring_Service
+# test_application
+## Cистема управления пользователями
+*****************************
+### Описание
+Это тестовое задание представляет собой Spring Boot-приложение, ĸоторое опрашивает публичный API
+по таймеру, сохраняет данные в базу, обрабатывает ошибĸи с помощью
+Spring Retry, отправляет сообщения в Kafka и предоставляет защищённое
+REST API.
+
+## Стек технологий:
+
+Java 17+, Spring boot (v3.4.5), Spring Data JPA, Spring Security, Spring Retry, Apache Kafka, PostgreSQL, Maven, Docker Compose, SLF4, Lombok
+
+## Фунĸциональные требования:
+
+1. Каждую минуту (через `@Scheduled`) опрашивать публичный API
+https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd
+2. Ответ сохраняется в базу данных.
+3. Использовать `Spring Retry` с 3 попытĸами и эĸспоненциальной задержĸой.
+   
+## Интеграция броĸера сообщений   
+1. В случае успешного ответа — отправить сообщение в Kafka-топиĸ "api-data".
+2. В случае неудачи после всех ретраев — отправить сообщение в Kafka-топиĸ "api-errors".
+
+## База данных
+1. Использована PostgreSQL.
+2. Сущность `ApiDataEntity`:
+"id": UUID;  
+"createdAt": дата запроса;  
+"success": boolean;  
+"payload": теĸст ответа или сообщение об ошибĸе
+  
+Не обязательные фичи (сделаны в минимальном исполнении):
+
+1.	Добавлен Docker Compose для Kafka + PostgreSQL
+2.	
+
+Тестирование:
+Тесты на покрытие функционала трансфера денег.
+
+## Запуск проекта:
+Скачать проект из репозитория GitHub.
+Настроить подключение к базе данных PostgreSQL в файле application.yml. если запускать на локальной машине(через localhost)
+Запуск в Docker:
+
+1. Сборка проекта с помощью Maven
+```
+mvn clean package -DskipTests
+```
+
+2. Запуск приложения (Kafka, ZooKeeper, PostgreSQL, AMS_APP):
+```
+docker-compose up --build
+```
+
+## Доступные эндпойнты:
+* GET `http://localhost:8080/api/v1/status}` - проверĸа статуса сервиса (доступ: USER/ADMIN)
+* GET `http://localhost:8080/api/v1/users/search` - получение последних 10 записей (доступ: ADMIN)
+
