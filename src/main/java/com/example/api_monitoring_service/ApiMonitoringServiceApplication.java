@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @SpringBootApplication
 @EnableScheduling
-@EnableRetry // для использования @Retryable
+@EnableRetry
 public class ApiMonitoringServiceApplication {
 
 	public static void main(String[] args) {

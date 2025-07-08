@@ -28,7 +28,6 @@ public class ApiPollingService {
             var jsonNode = apiService.fetchApiData();
             String payloadText = jsonNode.toString();
 
-            // Сохраняем успешный ответ в базу данных.
             ApiDataEntity entity = ApiDataEntity.builder()
                     .createdAt(java.time.LocalDateTime.now())
                     .success(true)
@@ -36,7 +35,6 @@ public class ApiPollingService {
                     .build();
             repository.save(entity);
 
-            // Отправляем сообщение в Kafka о успешных данных.
             kafkaProducerService.sendMessage("api-data", payloadText);
             log.info("API data fetched and sent to Kafka successfully.");
 
@@ -46,7 +44,6 @@ public class ApiPollingService {
             try {
                 String errorMsg = e.getMessage();
 
-                // Сохраняем ошибку в базу.
                 ApiDataEntity entity = ApiDataEntity.builder()
                         .createdAt(LocalDateTime.now())
                         .success(false)

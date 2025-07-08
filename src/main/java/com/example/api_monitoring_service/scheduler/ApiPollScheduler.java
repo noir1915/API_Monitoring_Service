@@ -1,7 +1,6 @@
 package com.example.api_monitoring_service.scheduler;
 
 import com.example.api_monitoring_service.service.ApiService;
-import com.fasterxml.jackson.core.JsonProcessingException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

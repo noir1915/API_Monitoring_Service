@@ -17,7 +17,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
@@ -39,20 +38,16 @@ public class ApiService {
             ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
             String responseBody = response.getBody();
 
-            // Сохраняем успешный ответ
             saveResponse(true, responseBody);
 
-            // Отправляем сообщение в Kafka "api-data"
             kafkaTemplate.send("api-data", responseBody);
 
             return objectMapper.readTree(responseBody);
         } catch (IOException e) {
-            // Обработка ошибок и ретраев через @Retryable
             saveResponse(false, e.getMessage());
             log.error("Ошибка при получении данных API: {}", e.getMessage(), e);
-            throw e; // чтобы Retry сработал при исключениях
+            throw e;
         } catch (Exception e) {
-            // Обработка неожиданных ошибок
             saveResponse(false, e.getMessage());
             log.error("Неожиданная ошибка: {}", e.getMessage(), e);
             throw e;
@@ -61,14 +56,12 @@ public class ApiService {
 
     private void saveResponse(boolean success, String payload) {
         ApiDataEntity entity = new ApiDataEntity();
-//        entity.setId(UUID.randomUUID());
         entity.setCreatedAt(LocalDateTime.now());
         entity.setSuccess(success);
         entity.setPayload(payload);
         repository.save(entity);
 
         if (!success) {
-            // Создаем DTO для ошибки
             ApiErrorDto errorDto = new ApiErrorDto(payload, LocalDateTime.now());
             try {
                 String errorJson = objectMapper.writeValueAsString(errorDto);
@@ -79,4 +72,3 @@ public class ApiService {
         }
     }
 }
-

@@ -10,22 +10,6 @@ services:
     ports:
       - "5432:5432"
 
-  app:
-    build: .
-    container_name: ams_
-    environment:
-      SPRING_PROFILES_ACTIVE: docker
-      PG_HOST: db
-      PG_PORT: 5432
-      PG_USER: postgres
-      PG_PASS: root
-    #expose:
-    #  - "8080"
-    ports:
-      - "8080:8080"
-    depends_on:
-      - db
-
   zookeeper:
     image: confluentinc/cp-zookeeper:6.2.0
     environment:
