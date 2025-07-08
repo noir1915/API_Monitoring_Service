@@ -28,9 +28,6 @@ public class ApiDataEntity {
     private boolean success;
 
     @Lob
-    private String payload; // текст ответа или сообщение об ошибке
-
-    @Version
-    private Long version;
+    private String payload;
 
 }
