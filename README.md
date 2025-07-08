@@ -38,7 +38,7 @@ https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd - с
 ## Запуск проекта:
 Скачать проект из репозитория GitHub.  
 Настроить подключение к базе данных PostgreSQL в файле application.yml.  
-Если запускать на локальной машине(через localhost), нужно расскоментить настройки в application.yaml и закомментить для Docker'a
+Если запускать на локальной машине(через localhost), нужно расскоментить настройки в application.yml и закомментить для Docker'a
 
 1. Сборка проекта с помощью Maven
 ```
