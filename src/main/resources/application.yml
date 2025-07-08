@@ -2,15 +2,17 @@ spring:
   application:
     name: api-monitoring-service
   datasource:
-    #    для локальной машины
+#    для локальной машины
 #    url: jdbc:postgresql://localhost:5432/test_db
 
-#    внутри Docker
+#   внутри Docker
     url: jdbc:postgresql://db:5432/postgres
 
     driverClassName: org.postgresql.Driver
     username: postgres
     password: root
+    hikari:
+      auto-commit: false
 
   security:
     user:
@@ -24,6 +26,11 @@ spring:
   kafka:
 #    для локальной машины
 #    bootstrap-servers: localhost:9092
+    producer:
+      properties:
+        max.block.ms: 600000
+        request.timeout.ms: 600000
+        delivery.timeout.ms: 600000
 
 #    для Docker'а
     bootstrap-servers: kafka:9092

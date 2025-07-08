@@ -21,8 +21,8 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/api/status").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/data").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/status").hasAnyRole("USER", "ADMIN")
+                        .requestMatchers("/api/v1/data").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .httpBasic(httpSecurityHttpBasicConfigurer -> {});
@@ -33,12 +33,12 @@ public class SecurityConfig {
     @Bean
     public UserDetailsService userDetailsService() {
         var user = User.withUsername("user")
-                .password("{noop}password")
+                .password("{noop}user")
                 .roles("USER")
                 .build();
 
         var admin = User.withUsername("admin")
-                .password("{noop}adminpass")
+                .password("{noop}admin")
                 .roles("ADMIN")
                 .build();
 

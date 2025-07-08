@@ -15,10 +15,10 @@ public class KafkaProducerService {
     public void sendMessage(String topic, String message) {
         kafkaTemplate.send(topic, message)
                 .thenAccept(result -> {
-                    log.info("Message sent to topic {} successfully.", topic);
+                    log.info("Сообщение успешно отправлено в топик {} .", topic);
                 })
                 .exceptionally(ex -> {
-                    log.error("Failed to send message to topic {}.", topic, ex);
+                    log.error("Не удалось отправить сообщение в топик {}.", topic, ex);
                     return null;
                 });
     }
