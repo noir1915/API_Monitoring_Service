@@ -19,8 +19,6 @@ public class ApiPollingService {
     private final ApiDataRepository repository;
     private final KafkaProducerService kafkaProducerService;
 
-    @Value("${api.url}")
-    private String apiUrl;
 
     @Scheduled(fixedRateString = "${api.pollingIntervalMs}")
     public void pollApi() {
@@ -36,10 +34,10 @@ public class ApiPollingService {
             repository.save(entity);
 
             kafkaProducerService.sendMessage("api-data", payloadText);
-            log.info("API data fetched and sent to Kafka successfully.");
+            log.info("Данные API успешно получены и отправлены в Kafka");
 
         } catch (Exception e) {
-            log.error("Error fetching API data: {}", e.getMessage());
+            log.error("Ошибка при получении данных с API: {}", e.getMessage());
 
             try {
                 String errorMsg = e.getMessage();

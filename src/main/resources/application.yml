@@ -2,19 +2,32 @@ spring:
   application:
     name: api-monitoring-service
   datasource:
-    url: jdbc:postgresql://localhost:5432/test_db
+    #    для локальной машины
+#    url: jdbc:postgresql://localhost:5432/test_db
+
+#    внутри Docker
+    url: jdbc:postgresql://db:5432/postgres
+
     driverClassName: org.postgresql.Driver
     username: postgres
     password: root
+
   security:
     user:
       name: user
       password: password
+
   jpa:
     hibernate:
       ddl-auto: update
+
   kafka:
-    bootstrap-servers: localhost:9092
+#    для локальной машины
+#    bootstrap-servers: localhost:9092
+
+#    для Docker'а
+    bootstrap-servers: kafka:9092
+
 server:
   port: 8080
 

@@ -33,7 +33,7 @@ public class ApiService {
             maxAttempts = 3,
             backoff = @Backoff(delay = 2000, multiplier = 2))
     public JsonNode fetchApiData() throws IOException {
-        String apiUrl = "https://api.coindesk.com/v1/bpi/currentprice.json";
+        String apiUrl = "https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd";
         try {
             ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
             String responseBody = response.getBody();
