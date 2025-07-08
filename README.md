@@ -1,4 +1,4 @@
-# API_Monitoring_Service
+# API_Monitoring_Service (AMS_APP)
 ## Сервис мониторинга API
 *****************************
 ### Описание
@@ -30,13 +30,10 @@ https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd
 "success": boolean;  
 "payload": теĸст ответа или сообщение об ошибĸе
   
-Не обязательные фичи (сделаны в минимальном исполнении):
+Необязательные фичи (сделаны в минимальном исполнении):
 
-1.	Добавлен Docker Compose для Kafka + PostgreSQL
-2.	
+1.	Добавлен Docker Compose для запуска (Kafka + PostgreSQL + Zookeeper + AMS_APP)
 
-Тестирование:
-Тесты на покрытие функционала трансфера денег.
 
 ## Запуск проекта:
 Скачать проект из репозитория GitHub.
@@ -48,7 +45,7 @@ https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd
 mvn clean package -DskipTests
 ```
 
-2. Запуск приложения (Kafka, ZooKeeper, PostgreSQL, AMS_APP):
+2. Запуск приложения (Kafka + Zookeeper + PostgreSQL + AMS_APP):
 ```
 docker-compose up --build
 ```
