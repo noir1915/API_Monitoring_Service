@@ -51,6 +51,6 @@ docker-compose up --build
 ```
 
 ## Доступные эндпойнты:
-* GET `http://localhost:8080/api/v1/status` - проверĸа статуса сервиса (доступ: USER/ADMIN) логин: user пароль user
-* GET `http://localhost:8080/api/v1/data` - получение последних 10 записей (доступ: ADMIN) логин: admin пароль: admin
+* GET `http://localhost:8080/api/v1/status` - проверĸа статуса сервиса (доступ: USER/ADMIN) логин: "user", пароль: "user"
+* GET `http://localhost:8080/api/v1/data` - получение последних 10 записей (доступ: ADMIN) логин: "admin" пароль: "admin"
 
