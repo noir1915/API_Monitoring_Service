@@ -32,20 +32,19 @@ https://api.coingecko.com/api/v3/simple/price?ids=bitcoin&vs_currencies=usd
   
 Необязательные фичи (сделаны в минимальном исполнении):
 
-1.	Добавлен Docker Compose для запуска (Kafka + PostgreSQL + Zookeeper + AMS_APP)
+1.	Добавлен Docker-Compose для запуска (Kafka + PostgreSQL + Zookeeper + AMS_APP)
 
 
 ## Запуск проекта:
 Скачать проект из репозитория GitHub.
 Настроить подключение к базе данных PostgreSQL в файле application.yml. если запускать на локальной машине(через localhost)
-Запуск в Docker:
 
 1. Сборка проекта с помощью Maven
 ```
 mvn clean package -DskipTests
 ```
 
-2. Запуск приложения (Kafka + Zookeeper + PostgreSQL + AMS_APP):
+2. Запуск приложения в Docker: (Kafka + Zookeeper + PostgreSQL + AMS_APP):
 ```
 docker-compose up --build
 ```
